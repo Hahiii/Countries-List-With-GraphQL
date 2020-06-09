@@ -3,8 +3,7 @@ import Country from "../country";
 import "./index.css";
 
 function Countries() {
-  const toggle = false;
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState([""]);
   const [countries, setCountries] = useState();
   const countriesQuery = `{
     countries   
@@ -39,18 +38,20 @@ function Countries() {
           return (
             <li
               className="countries-list__item"
-              data-toggle={code === country.code ? !toggle : toggle}
+              data-toggle={code.indexOf(country.code) > -1}
               data-country-code={country.code}
               key={country.name}
               onClick={(e) => {
-                if (
-                  e.currentTarget.dataset.countryCode === country.code &&
-                  !code
-                ) {
-                  setCode(country.code);
-                  return;
+                if (e.currentTarget.dataset.countryCode === country.code) {
+                  if (code.indexOf(country.code) > -1) {
+                    let tempCode = code.filter(
+                      (items) => items !== country.code
+                    );
+                    setCode([...tempCode]);
+                  } else {
+                    setCode([...code, country.code]);
+                  }
                 }
-                return setCode("");
               }}
             >
               <h2 className="countries-list__item__headline">
@@ -59,7 +60,9 @@ function Countries() {
                 </span>
                 {country.name}
               </h2>
-              {code === country.code && <Country code={country.code} />}
+              {code.indexOf(country.code) > -1 && (
+                <Country code={country.code} />
+              )}
             </li>
           );
         })}

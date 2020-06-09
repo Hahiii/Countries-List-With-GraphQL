@@ -39,10 +39,9 @@ function Country({ code }) {
         }),
       }).then((res) => res.json());
       setCountry([data.country]);
-      console.log([data.country]);
     }
     getCountries(code);
-  }, [countryByCodeQuery]);
+  }, [countryByCodeQuery, code]);
 
   return (
     <section className="countries-list__item__content">
