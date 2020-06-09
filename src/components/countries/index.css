@@ -36,10 +36,10 @@
   color: #d3d3d3;
 }
 
-[data-toggle="closed"]::after {
+[data-toggle="false"]::after {
   content: "+";
 }
 
-[data-toggle="open"]::after {
+[data-toggle="true"]::after {
   content: "-";
 }

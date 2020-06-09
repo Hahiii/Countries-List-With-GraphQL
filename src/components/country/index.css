@@ -1,0 +1,12 @@
+.countries-list__item__content {
+  padding: 0 45px 20px;
+  font-size: 14px;
+}
+
+.countries-list__item__label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: monospace;
+  color: #6e6e6e;
+}

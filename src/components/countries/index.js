@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+import Country from "../country";
 import "./index.css";
 
 function Countries() {
-  const [toggle, setToggle] = useState("closed");
+  const toggle = false;
+  const [code, setCode] = useState("");
   const [countries, setCountries] = useState();
   const countriesQuery = `{
-    countries {
-        name
-        emoji
-    }
+    countries   
+      {
+        name, 
+        emoji, 
+        code
+      }
   }`;
   const baseURL = "https://countries.trevorblades.com/";
   useEffect(() => {
@@ -35,8 +39,19 @@ function Countries() {
           return (
             <li
               className="countries-list__item"
-              data-toggle={toggle}
+              data-toggle={code === country.code ? !toggle : toggle}
+              data-country-code={country.code}
               key={country.name}
+              onClick={(e) => {
+                if (
+                  e.currentTarget.dataset.countryCode === country.code &&
+                  !code
+                ) {
+                  setCode(country.code);
+                  return;
+                }
+                return setCode("");
+              }}
             >
               <h2 className="countries-list__item__headline">
                 <span className="countries-list__item__icon">
@@ -44,6 +59,7 @@ function Countries() {
                 </span>
                 {country.name}
               </h2>
+              {code === country.code && <Country code={country.code} />}
             </li>
           );
         })}
